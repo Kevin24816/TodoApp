@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', 'appController@index');
+
+//Route::post('/users', 'appController@createUser');
+//
+//Route::post('/auth', 'appController@authenticate');
+//
+//Route::delete('/auth', 'appController@logout');
+//
+//Route::post('/notes', 'appController@createNote');
+//
+//Route::get('/notes/:id', 'retrieveNote');
+//
+//Route::put('notes/:id', 'appController@editNote');
+//
+//Route::delete('notes/:id', 'appController@deleteNote');
+

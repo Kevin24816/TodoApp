@@ -1,0 +1,27 @@
+mysql -uroot -p
+create database todo;
+use todo;
+
+create table users(
+    username VARCHAR(50),
+    password VARCHAR(50),
+    created_at DATE,
+    updated_at DATE,
+    api_token VARCHAR(40),
+    id INT,
+    PRIMARY KEY (id));
+
+php artisan make:migration create_users_table --create=users
+
+create table notes(
+    title VARCHAR(20),
+    description VARCHAR(100),
+    completed BOOLEAN,
+    created_at DATE,
+    updated_at DATE,
+    user_id INT,
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+    );
+
+php artisan make:migration create_notes_table --create=notes
