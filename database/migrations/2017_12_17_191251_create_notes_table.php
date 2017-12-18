@@ -19,8 +19,10 @@ class CreateNotesTable extends Migration
             $table->boolean('completed');
             $table->date('created_at');
             $table->date('updated_at');
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->increments('id');
+            $table->engine = 'InnoDB';
         });
     }
 

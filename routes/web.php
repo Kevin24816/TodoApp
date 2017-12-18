@@ -11,23 +11,30 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+use App\Notes;
+use App\User;
 
-Route::get('/', 'appController@index');
+// USERS
+Route::post('/users', 'UserController@signup');
+Route::post('/auth', 'UserController@login');
+Route::post('/auth', 'UserController@logout');
 
-//Route::post('/users', 'appController@createUser');
-//
-//Route::post('/auth', 'appController@authenticate');
-//
-//Route::delete('/auth', 'appController@logout');
-//
-//Route::post('/notes', 'appController@createNote');
-//
-//Route::get('/notes/:id', 'retrieveNote');
-//
-//Route::put('notes/:id', 'appController@editNote');
-//
-//Route::delete('notes/:id', 'appController@deleteNote');
+// NOTES
+Route::post('/notes', 'NotesController@store');
+Route::get('/notes', 'NotesController@getAllNotes');
+Route::get('/notes/{id}', 'NotesController@getSingleNote');
+Route::put('/notes/{id}', 'NotesController@edit');
+Route::delete('/notes/{id}', 'NotesController@destroy');
+
+
+
+
+// TEST
+Route::get('/', function () {
+    $name = "Kev";
+    return view('welcome', compact('name'));
+});
+
+
+
 

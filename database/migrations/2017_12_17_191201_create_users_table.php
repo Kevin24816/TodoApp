@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->date('created_at');
             $table->date('updated_at');
             $table->string('api_token');
-            $table->integer('id');
-            $table->primary('id');
+            $table->increments('id');
+            $table->engine = 'InnoDB';
         });
     }
 
