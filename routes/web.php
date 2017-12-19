@@ -11,23 +11,21 @@
 |
 */
 
-use App\Notes;
+use App\Note;
 use App\User;
 
 // USERS
 Route::post('/users', 'UserController@signup');
 Route::post('/auth', 'UserController@login');
-Route::post('/auth', 'UserController@logout');
+
+Route::delete('/auth', 'UserController@logout');
 
 // NOTES
 Route::post('/notes', 'NotesController@store');
-Route::get('/notes', 'NotesController@getAllNotes');
+Route::get('/notes', 'NotesController@retrieveNotes');
 Route::get('/notes/{id}', 'NotesController@getSingleNote');
 Route::put('/notes/{id}', 'NotesController@edit');
 Route::delete('/notes/{id}', 'NotesController@destroy');
-
-
-
 
 // TEST
 Route::get('/', function () {
@@ -36,5 +34,6 @@ Route::get('/', function () {
 });
 
 
+Route::get('/users', 'UserController@test');
 
-
+Auth::routes();

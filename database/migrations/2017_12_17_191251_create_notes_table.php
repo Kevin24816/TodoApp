@@ -16,7 +16,7 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->string('title');
             $table->text('description');
-            $table->boolean('completed');
+            $table->boolean('completed')->default(false);
             $table->date('created_at');
             $table->date('updated_at');
             $table->unsignedInteger('user_id');

@@ -257,7 +257,7 @@ angular.module('internApp', ['ui.bootstrap', 'ngRoute'])
 			controller: 'SignInController'
 		})
 		.when('/home', {
-			templateUrl: 'templates/home.html',
+			templateUrl: 'templates/home.blade.php',
 			controller: 'HomeController'
 		});
 });

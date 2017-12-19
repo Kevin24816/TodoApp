@@ -1,4 +1,4 @@
-<h1>Welcome home!!!</h1>
+<h1>Welcome home!</h1>
 <button class="btn btn-primary" ng-click="addNote()">Add note</button>
 <table class="table table-stripped">
 	<tr>
@@ -8,8 +8,8 @@
 		<th>Action</th>
 	</tr>
 	<tr ng-repeat="note in notes">
-		<td>{{ note.title }}</td>	
-		<td>{{ note.description }}</td>
+		{{--<td>{{ note.title }}</td>	--}}
+		{{--<td>{{ note.description }}</td>--}}
 		<td><input type="checkbox" ng-checked="note.completed" ng-model="note.completed" ng-change="toggleComplete(note)"></td>
 		<td> 
 			<button class="btn btn-danger" ng-click="removeNote(note.id)">Delete</button> 
