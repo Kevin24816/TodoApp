@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use \App\User;
-use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -48,19 +47,17 @@ class UserController extends Controller
             return response("login failed", 400);
         }
 
-        $user_id = $correct_password = User::where('username', $username)->value('id');
-        Session::put('user_id', $user_id);
-
         // generate new token and store token in database
         $token = bin2hex(random_bytes(self::$token_length));
         User::where('username', $username)->update(array('api_token' => $token));
 
-        return response($token, 201);
+        return response()->json(["token" => $token], 201);
     }
 
     // DELETE to /auth
     public function logout() {
-        $user_id = Session::get('user_id');
+        $user_id = self::getUserID();
+
         if ($user_id == null) {
             return response("Session has expired. Login to continue.");
         }
@@ -68,8 +65,15 @@ class UserController extends Controller
         // destroy the token
         User::where('id', $user_id)->update(array('api_token' => "INVALID"));
 
-        Session::forget('user_id');
         return response("User logged out", 200);
     }
 
+
+    // get the user id
+    public static function getUserID() {
+        $token_header = request()->header("Authorization");
+        $token = explode(' ', $token_header)[1];
+
+        return User::where('api_token', $token)->value('id');
+    }
 }

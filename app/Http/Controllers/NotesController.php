@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
 use \App\Note;
 
 class NotesController extends Controller
@@ -10,7 +9,7 @@ class NotesController extends Controller
 
     // POST on /notes
     public function store() {
-        $user_id = Session::get('user_id');
+        $user_id = UserController::getUserID();
         if ($user_id == null) {
             return response("Session has expired. Login to continue.", 400);
         }
@@ -26,9 +25,10 @@ class NotesController extends Controller
 
     // GET on /notes
     public function retrieveNotes() {
-        $user_id = Session::get('user_id');
+        $user_id = UserController::getUserID();
+
         if ($user_id == null) {
-            return response("Session has expired. Login to continue.", 400);
+            return response("Session has expired. Login to continue".$user_id, 400);
         }
 
         return response()->json(['notes' => Note::where('user_id', $user_id)->get()], 200);
