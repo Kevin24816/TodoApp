@@ -1,18 +1,18 @@
 <?php
 
 // Get from heroku environment variables
-//$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-//$host = $url["host"];
-//$username = $url["user"];
-//$password = $url["pass"];
-//$database = substr($url["path"], 1);
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
 
 
 // Parse from .env
-$host = env('DB_HOST', '127.0.0.1');
-$database = env('DB_DATABASE', 'forge');
-$username = env('DB_USERNAME', 'forge');
-$password = env('DB_PASSWORD', '');
+//$host = env('DB_HOST', '127.0.0.1');
+//$database = env('DB_DATABASE', 'forge');
+//$username = env('DB_USERNAME', 'forge');
+//$password = env('DB_PASSWORD', '');
 
 
 return [
