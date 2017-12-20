@@ -65,7 +65,7 @@ class NotesController extends Controller
         // check if note exists
         $note = Note::where([['id', $id], ["user_id", $user_id]])->first();
         if ($note == null) {
-            return response("Note not found.", 400);
+            return response("Note not found. user_id:".$user_id.", id:".$id, 400);
         }
 
         // update note
