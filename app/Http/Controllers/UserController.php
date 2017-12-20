@@ -10,14 +10,13 @@ class UserController extends Controller
 
     // POST to /users
     public function signup() {
-
         $username = request("username");
         $password = request("password");
         $password_conf = request("password_confirmation");
 
+        // check if passwords mismatched or username is taken
         $password_matches = $password === $password_conf;
         $username_taken = User::where('username', $username)->first() !== null;
-
         if (!$password_matches || $username_taken) {
             return response("Sign up invalid", 400);
         }
@@ -32,6 +31,7 @@ class UserController extends Controller
         $user->api_token = $token;
         $user->save();
 
+        // return the api token
         return response()->json(["token" => $token], 201);
     }
 
@@ -40,9 +40,9 @@ class UserController extends Controller
         $username = request("username");
         $password = request("password");
 
+        // check if username and passwords match that in the database
         $correct_password = User::where('username', $username)->value('password');
         $password_matches = $password === $correct_password;
-
         if (!$password_matches) {
             return response("login failed", 400);
         }
@@ -51,13 +51,13 @@ class UserController extends Controller
         $token = bin2hex(random_bytes(self::$token_length));
         User::where('username', $username)->update(array('api_token' => $token));
 
+        // return the api token
         return response()->json(["token" => $token], 201);
     }
 
     // DELETE to /auth
     public function logout() {
         $user_id = self::getUserID();
-
         if ($user_id == null) {
             return response("Session has expired. Login to continue.");
         }
@@ -69,7 +69,7 @@ class UserController extends Controller
     }
 
 
-    // get the user id
+    // get the user id from the token in the request header
     public static function getUserID() {
         $token_header = request()->header("Authorization");
         $token = explode(' ', $token_header)[1];
