@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use \App\User;
+use \App\Note;
 
 class UserController extends Controller
 {
@@ -32,7 +33,7 @@ class UserController extends Controller
         $user->save();
 
         // return the api token
-        return response()->json(["token" => $token], 201);
+        return response()->json(["token" => $token, "username" => $username], 201);
     }
 
     // POST to /auth
@@ -52,7 +53,7 @@ class UserController extends Controller
         User::where('username', $username)->update(array('api_token' => $token));
 
         // return the api token
-        return response()->json(["token" => $token], 201);
+        return response()->json(["token" => $token, "username" => $username], 201);
     }
 
     // DELETE to /auth
@@ -68,6 +69,19 @@ class UserController extends Controller
         return response("User logged out", 200);
     }
 
+    // DELETE on /users
+    public function destroy() {
+        // check user id to make sure token matches
+        $user_id = UserController::getUserID();
+        if ($user_id == null) {
+            return response("Session has expired. Login to continue", 400);
+        }
+
+        // find and delete both the user's notes and the user
+        Note::where("user_id", $user_id)->delete();
+        User::where("id", $user_id)->delete();
+        return response("user deleted", 200);
+    }
 
     // get the user id from the token in the request header
     public static function getUserID() {

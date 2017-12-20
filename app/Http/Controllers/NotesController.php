@@ -82,7 +82,7 @@ class NotesController extends Controller
         // check user id to make sure token matches
         $user_id = UserController::getUserID();
         if ($user_id == null) {
-            return response("Session has expired. Login to continue".$user_id, 400);
+            return response("Session has expired. Login to continue", 400);
         }
 
         // find and delete the note

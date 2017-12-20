@@ -17,8 +17,8 @@ use App\User;
 // USERS
 Route::post('/users', 'UserController@signup');
 Route::post('/auth', 'UserController@login');
-
 Route::delete('/auth', 'UserController@logout');
+Route::delete('/users', 'UserController@destroy');
 
 // NOTES
 Route::post('/notes', 'NotesController@store');
