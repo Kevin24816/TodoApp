@@ -27,13 +27,4 @@ Route::get('/notes/{id}', 'NotesController@getSingleNote');
 Route::put('/notes/{id}', 'NotesController@edit');
 Route::delete('/notes/{id}', 'NotesController@destroy');
 
-// TEST
-Route::get('/', function () {
-    $name = "Kev";
-    return view('welcome', compact('name'));
-});
-
-
-Route::get('/users', 'UserController@test');
-
 Auth::routes();
