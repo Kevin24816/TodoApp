@@ -1,11 +1,18 @@
 <?php
 
+// Use with heroku clearDB
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
 $host = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $database = substr($url["path"], 1);
+
+// Use with database specified in .env
+//$host = env('DB_HOST', '127.0.0.1');
+//$database = env('DB_DATABASE', 'forge');
+//$username = env('DB_USERNAME', 'forge');
+//$password = env('DB_PASSWORD', '');
+
 
 return [
 

@@ -73,7 +73,6 @@ class UserController extends Controller
     public static function getUserID() {
         $token_header = request()->header("Authorization");
         $token = explode(' ', $token_header)[1];
-
         return User::where('api_token', $token)->value('id');
     }
 }
